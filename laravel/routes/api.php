@@ -28,3 +28,8 @@ Route::post('test', static function (Request $request) {
     $request->validate(['text' => 'required|string']);
     return Sample::create(['text' => $request->input('text')]);
 });
+
+Route::get('health_check', static function () {
+    $status = ['status' => 200, 'message' => 'success'];
+    return compact('status');
+});
