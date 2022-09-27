@@ -7,23 +7,23 @@ phases:
       - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
       - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
       - aws --version
-      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin <あなたのアカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 806467626197.dkr.ecr.ap-northeast-1.amazonaws.com
       - cp laravel/.env.example laravel/.env
       - . laravel/deploy/set_env_variables.sh
       - bash laravel/deploy/set_env_variables.sh
       # Codebuildが標準で使うことができる環境変数
       - version=$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - NGINX_ECR_REPO_URL=<あなたのアカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-backend-nginx
-      - PHP_ECR_REPO_URL=<あなたのアカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-backend-phpfpm
-      - NEXT_ECR_REPO_URL=<あなたのアカウントID>.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-next
+      - NGINX_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-nginx
+      - PHP_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-php-fpm
+      - NEXT_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-next
   build:
     commands:
       - echo Build started on `date`
-      - docker build -t zenn-backend-nginx:"${version}" -f ./laravel/infra/web/Dockerfile ./laravel
-      - docker tag zenn-backend-nginx:"${version}" ${NGINX_ECR_REPO_URL}:"${version}"
+      - docker build -t zenn-nginx:"${version}" -f ./laravel/infra/web/Dockerfile ./laravel
+      - docker tag zenn-nginx:"${version}" ${NGINX_ECR_REPO_URL}:"${version}"
       - CURRENT_NGINX_ECR_REPO_URL="${NGINX_ECR_REPO_URL}":"${version}"
-      - docker build -t zenn-backend-phpfpm:"${version}" -f ./laravel/infra/php/Dockerfile ./laravel
-      - docker tag zenn-backend-phpfpm:"${version}" "${PHP_ECR_REPO_URL}":"${version}"
+      - docker build -t zenn-php-fpm:"${version}" -f ./laravel/infra/php/Dockerfile ./laravel
+      - docker tag zenn-php-fpm:"${version}" "${PHP_ECR_REPO_URL}":"${version}"
       - CURRENT_PHP_ECR_REPO_URL="${PHP_ECR_REPO_URL}":"${version}"
       - docker build -t zenn-next:"${version}" -f ./next/Dockerfile.prod ./next
       - docker tag zenn-next:"${version}" "${NEXT_ECR_REPO_URL}":"${version}"
