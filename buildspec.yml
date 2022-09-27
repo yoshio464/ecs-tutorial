@@ -39,6 +39,7 @@ phases:
       - printf '[{"name":"zenn-app-container-nginx-backend","imageUri":"%s"}, {"name":"zenn-app-container-phpfpm-backend","imageUri":"%s"}]' $CURRENT_NGINX_ECR_REPO_URL $CURRENT_PHP_ECR_REPO_URL > backend_imagedefinitions.json
       - pwd
       - cd laravel
+      - apk add curl
       - curl -s https://getcomposer.org/installer | php
       - composer install
       - composer dump-autoload
