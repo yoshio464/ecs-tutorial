@@ -38,8 +38,8 @@ phases:
       - printf '[{"name":"zenn-app-container-next-frontend","imageUri":"%s"}]' $CURRENT_NEXT_ECR_REPO_URL > frontend_imagedefinitions.json
       - printf '[{"name":"zenn-app-container-nginx-backend","imageUri":"%s"}, {"name":"zenn-app-container-phpfpm-backend","imageUri":"%s"}]' $CURRENT_NGINX_ECR_REPO_URL $CURRENT_PHP_ECR_REPO_URL > backend_imagedefinitions.json
       - cd laravel
-      - php /usr/local/bin/composer.phar install
-      - php /usr/local/bin/composer.phar dump-autoload
+      - php /usr/local/bin/composer install
+      - php /usr/local/bin/composer dump-autoload
       - php artisan migrate --force
       - bash deploy/seeder/specific_seeding.sh
       - cd ..
