@@ -16,7 +16,6 @@ phases:
       - NGINX_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-nginx
       - PHP_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-php-fpm
       - NEXT_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-next
-      - cd ../
   build:
     commands:
       - echo Build started on `date`
