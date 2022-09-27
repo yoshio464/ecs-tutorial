@@ -11,11 +11,15 @@ phases:
       - cp laravel/.env.example laravel/.env
       - . laravel/deploy/set_env_variables.sh
       - bash laravel/deploy/set_env_variables.sh
+      # composerをinstall
+      - cd laravel
+      - curl -s https://getcomposer.org/installer | php
       # Codebuildが標準で使うことができる環境変数
       - version=$CODEBUILD_RESOLVED_SOURCE_VERSION
       - NGINX_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-nginx
       - PHP_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-php-fpm
       - NEXT_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-next
+      - cd ../
   build:
     commands:
       - echo Build started on `date`
