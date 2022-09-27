@@ -11,9 +11,6 @@ phases:
       - cp laravel/.env.example laravel/.env
       - . laravel/deploy/set_env_variables.sh
       - bash laravel/deploy/set_env_variables.sh
-      # composerをinstall
-      - cd laravel
-      - curl -s https://getcomposer.org/installer | php
       # Codebuildが標準で使うことができる環境変数
       - version=$CODEBUILD_RESOLVED_SOURCE_VERSION
       - NGINX_ECR_REPO_URL=806467626197.dkr.ecr.ap-northeast-1.amazonaws.com/zenn-nginx
@@ -43,8 +40,9 @@ phases:
       - printf '[{"name":"zenn-app-container-nginx-backend","imageUri":"%s"}, {"name":"zenn-app-container-phpfpm-backend","imageUri":"%s"}]' $CURRENT_NGINX_ECR_REPO_URL $CURRENT_PHP_ECR_REPO_URL > backend_imagedefinitions.json
       - pwd
       - cd laravel
-      - php /usr/local/bin/composer install
-      - php /usr/local/bin/composer dump-autoload
+      - curl -s https://getcomposer.org/installer | php
+      - composer install
+      - composer dump-autoload
       - php artisan migrate --force
       - bash deploy/seeder/specific_seeding.sh
       - cd ..
