@@ -42,13 +42,14 @@ phases:
       - pwd
       - cd laravel
       - ls -la
-      - composer install --no-plugins
-      - composer install
-      - composer dump-autoload
-      - ls -la
-      - php artisan migrate --force
-      - bash deploy/seeder/specific_seeding.sh
-      - cd ..
+      - composer -v
+      # - composer install --no-plugins
+      # - composer install
+      # - composer dump-autoload
+      # - ls -la
+      # - php artisan migrate --force
+      # - bash deploy/seeder/specific_seeding.sh
+      # - cd ..
 artifacts:
   files:
     - frontend_imagedefinitions.json
