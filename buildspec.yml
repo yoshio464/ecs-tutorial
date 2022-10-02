@@ -42,8 +42,9 @@ phases:
       - pwd
       - cd laravel
       - ls -la
-      # - composer install
-      # - composer dump-autoload
+      - composer install
+      - composer dump-autoload
+      - ls -la
       - php artisan migrate --force
       - bash deploy/seeder/specific_seeding.sh
       - cd ..
