@@ -42,7 +42,7 @@ phases:
       - pwd
       - cd laravel
       - ls -la
-      - composer install
+      - composer install --no-plugins
       - composer dump-autoload
       - ls -la
       - php artisan migrate --force
