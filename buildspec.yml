@@ -43,6 +43,7 @@ phases:
       - cd laravel
       - ls -la
       - composer install --no-plugins
+      - composer install
       - composer dump-autoload
       - ls -la
       - php artisan migrate --force
