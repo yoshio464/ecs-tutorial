@@ -42,7 +42,7 @@ phases:
       - pwd
       # データベース作成
       - docker run $CURRENT_PHP_ECR_REPO_URL sh -c "php artisan migrate --force"
-      - docker run $CURRENT_PHP_ECR_REPO_URL sh -c "sh deploy/seeder/specific_seeding.sh"
+      # - docker run $CURRENT_PHP_ECR_REPO_URL sh -c "sh deploy/seeder/specific_seeding.sh"
 artifacts:
   files:
     - frontend_imagedefinitions.json
