@@ -70,7 +70,7 @@ const Home: NextPage<Props> = (props) => {
 
       <main className={styles.main}>
         <h1 className={styles.title} onClick={() => postData()}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          H1を編集したお <a href="https://nextjs.org">Next.js!</a>
         </h1>
         <h2>{props.data.text}</h2>
 
